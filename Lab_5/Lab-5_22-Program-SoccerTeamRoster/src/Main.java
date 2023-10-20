@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
@@ -25,22 +26,12 @@ public class Main {
         }
 
         System.out.println("ROSTER");
-        for (int i = 0; i < arrLength; i++) {
-            System.out.println("Player " + (i + 1) + " -- Jersey number: " + playersNumbers[i] + ", Rating: " + playersRating[i]);
-        }
+
+        outputRoster(arrLength, playersNumbers, playersRating);
 
         System.out.println();
 
         // (2)
-        System.out.println("MENU");
-        System.out.println("u - Update player rating");
-        System.out.println("a - Output players above a rating");
-        System.out.println("r - Replace player");
-        System.out.println("o - Output roster");
-        System.out.println("q - Quit");
-        System.out.println();
-        System.out.println("Choose an option:");
-
         StringBuilder sb = new StringBuilder();
 
         sb.append("MENU\n");
@@ -49,25 +40,37 @@ public class Main {
         sb.append("r - Replace player\n");
         sb.append("o - Output roster\n");
         sb.append("q - Quit\n\n");
-        sb.append("Choose an option:");
+        sb.append("Choose an option:\n");
 
         System.out.println(sb.toString());
 
         char option = scnr.next().charAt(0);
         while (option != 'q') {
-
+            // (4)
             if (option == 'u') {
+                //System.out.println("Enter a jersey number:");
+                int updatePlayer = scnr.nextInt();
+                int indexOfPlayerRating = Arrays.binarySearch(playersNumbers, updatePlayer);
 
+                //System.out.println("Enter a new rating for player:");
+                int newPlayerRating = scnr.nextInt();
+                playersRating[indexOfPlayerRating] = newPlayerRating;
             } else if (option == 'a') {
 
             } else if (option == 'r') {
-
+            // (3)
             } else if (option == 'o') {
-
+                outputRoster(arrLength,playersNumbers,playersRating);
             }
 
-            option = (char) scnr.nextInt();
-            System.out.println(sb.toString());
+            option = scnr.next().charAt(0);
+            // System.out.println(sb.toString());
+        }
+    }
+
+    private static void outputRoster(int arrLength, int[] playersNumbers, int[] playersRating) {
+        for (int i = 0; i < arrLength; i++) {
+            System.out.println("Player " + (i + 1) + " -- Jersey number: " + playersNumbers[i] + ", Rating: " + playersRating[i]);
         }
     }
 }
